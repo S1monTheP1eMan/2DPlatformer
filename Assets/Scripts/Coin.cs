@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D _rb2d;
-    [SerializeField] float _force;
+    [SerializeField] private Rigidbody2D _rigidbody;
+    [SerializeField] private float _force;
+    [SerializeField] private float _minX;
+    [SerializeField] private float _maxX;
+    [SerializeField] private float _minY;
+    [SerializeField] private float _maxY;
 
     private void Start()
     {
-        float randomX = Random.Range(-2f, 2f) * _force;
-        float randomY = Random.Range(0f, 5f) * _force;
+        float randomX = Random.Range(_minX, _maxX) * _force;
+        float randomY = Random.Range(_minY, _maxY) * _force;
 
-        _rb2d.AddForceAtPosition(new Vector2(randomX, randomY), new Vector2(randomX, randomY));
+        _rigidbody.AddForceAtPosition(new Vector2(randomX, randomY), new Vector2(randomX, randomY));
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

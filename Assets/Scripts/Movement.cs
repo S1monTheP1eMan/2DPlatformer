@@ -16,7 +16,7 @@ public class Movement : MonoBehaviour
     private Vector2 _targetVelocity;
     private bool _grounded;
     private Vector2 _groundNormal;
-    private Rigidbody2D _rb2d;
+    private Rigidbody2D _rigidbody;
     private ContactFilter2D _contactFilter;
     private RaycastHit2D[] _hitBuffer = new RaycastHit2D[16];
     private List<RaycastHit2D> _hitBufferList = new List<RaycastHit2D>(16);
@@ -26,7 +26,7 @@ public class Movement : MonoBehaviour
 
     private void OnEnable()
     {
-        _rb2d = GetComponent<Rigidbody2D>();
+        _rigidbody = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
@@ -74,7 +74,7 @@ public class Movement : MonoBehaviour
 
         if (distance > _minMoveDistance)
         {
-            int count = _rb2d.Cast(move, _contactFilter, _hitBuffer, distance + _shellRadius);
+            int count = _rigidbody.Cast(move, _contactFilter, _hitBuffer, distance + _shellRadius);
 
             _hitBufferList.Clear();
 
@@ -108,7 +108,7 @@ public class Movement : MonoBehaviour
             }
         }
 
-        _rb2d.position += move.normalized * distance;
+        _rigidbody.position += move.normalized * distance;
     }
 
     private void Flip()
